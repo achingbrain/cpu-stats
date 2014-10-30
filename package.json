@@ -1,0 +1,35 @@
+{
+  "name": "cpu-stats",
+  "version": "1.0.0",
+  "description": "Calculates per-core CPU usage of the current computer",
+  "main": "index.js",
+  "scripts": {
+    "test": "istanbul cover _mocha",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
+  },
+  "author": "Alex Potsides <alex@achingbrain.net>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/achingbrain/cpu-stats.git"
+  },
+  "bugs": {
+    "url": "https://github.com/achingbrain/cpu-stats/issues"
+  },
+  "devDependencies": {
+    "coveralls": "^2.8",
+    "istanbul": "^0.3.0",
+    "mocha": "^1.0",
+    "proxyquire": "^1.0",
+    "chai": "^1.0",
+    "sinon": "^1.8"
+  },
+  "keywords": [
+    "cpu",
+    "usage",
+    "utilisation",
+    "utilization",
+    "monitor",
+    "system"
+  ]
+}
