@@ -4,4 +4,4 @@ node_js:
  - "0.12"
  - "4.1"
  - "4.2"
-after_script: npm run coveralls
+after_script: npm run test:coverage && npm run coveralls
