@@ -1,19 +1,19 @@
 var os = require('os')
 
-var withEvery = function(callback) {
-  os.cpus().forEach(function(cpu, index) {
-    Object.keys(cpu.times).forEach(function(key) {
+var withEvery = function (callback) {
+  os.cpus().forEach(function (cpu, index) {
+    Object.keys(cpu.times).forEach(function (key) {
       callback(index, key, cpu.times[key])
     })
   })
 }
 
-module.exports = function(timeout, callback) {
-  if(arguments.length == 0) {
+module.exports = function (timeout, callback) {
+  if (arguments.length === 0) {
     throw new Error('Please pass a callback to cpu-stats')
   }
 
-  if(arguments.length == 1) {
+  if (arguments.length === 1) {
     callback = timeout
     timeout = 1000
   }
@@ -21,21 +21,21 @@ module.exports = function(timeout, callback) {
   var initial = []
   var values = []
 
-  for(var i = 0; i < os.cpus().length; i++) {
+  for (var i = 0; i < os.cpus().length; i++) {
     initial.push({})
     values.push({})
   }
 
-  withEvery(function(index, key, value) {
+  withEvery(function (index, key, value) {
     initial[index][key] = value
   })
 
-  setTimeout(function() {
-    withEvery(function(index, key, value) {
+  setTimeout(function () {
+    withEvery(function (index, key, value) {
       values[index][key] = value - initial[index][key]
     })
 
-    var output = values.map(function(value) {
+    var output = values.map(function (value) {
       var total = value.user + value.nice + value.sys + value.idle + value.irq
 
       return {

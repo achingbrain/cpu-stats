@@ -4,7 +4,10 @@
   "description": "Calculates per-core CPU usage of the current computer",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover _mocha",
+    "test": "mocha --recursive",
+    "test:coverage": "istanbul cover _mocha -- --recursive",
+    "test:coverage:check": "istanbul cover _mocha -- --recursive && istanbul check-coverage --statement 100 --branch 100 --function 100",
+    "lint": "standard",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "author": "Alex Potsides <alex@achingbrain.net>",
@@ -17,12 +20,14 @@
     "url": "https://github.com/achingbrain/cpu-stats/issues"
   },
   "devDependencies": {
+    "chai": "^3.3.0",
     "coveralls": "^2.8",
     "istanbul": "^0.3.0",
     "mocha": "^2.0",
+    "pre-commit": "^1.1.1",
     "proxyquire": "^1.0",
-    "chai": "^1.0",
-    "sinon": "^1.8"
+    "sinon": "^1.8",
+    "standard": "^5.3.1"
   },
   "keywords": [
     "cpu",
@@ -31,5 +36,9 @@
     "utilization",
     "monitor",
     "system"
+  ],
+  "pre-commit": [
+    "lint",
+    "test:coverage:check"
   ]
 }

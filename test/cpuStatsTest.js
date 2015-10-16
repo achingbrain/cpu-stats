@@ -1,9 +1,12 @@
-var expect = require('chai').expect,
-  sinon = require('sinon'),
-  path = require('path'),
-  proxyquire = require('proxyquire')
+var describe = require('mocha').describe
+var before = require('mocha').before
+var after = require('mocha').after
+var it = require('mocha').it
+var expect = require('chai').expect
+var sinon = require('sinon')
+var proxyquire = require('proxyquire')
 
-describe('cpu-status', function() {
+describe('cpu-status', function () {
   var clock
 
   before(function () {
@@ -14,7 +17,7 @@ describe('cpu-status', function() {
     clock.restore()
   })
 
-  it('should work out stats', function(done) {
+  it('should work out stats', function (done) {
     var os = {
       cpus: sinon.stub()
     }
@@ -31,7 +34,7 @@ describe('cpu-status', function() {
         irq: 0
       }
     }, {
-      times:{
+      times: {
         idle: 0,
         user: 0,
         sys: 0,
@@ -40,7 +43,7 @@ describe('cpu-status', function() {
       }
     }])
 
-    cpuStats(2000, function(error, results) {
+    cpuStats(2000, function (error, results) {
       expect(error).to.not.exist
 
       expect(results[0].cpu).to.equal(50)
@@ -61,7 +64,7 @@ describe('cpu-status', function() {
     })
 
     os.cpus.returns([{
-        times: {
+      times: {
         idle: 20,
         user: 20,
         sys: 10,
@@ -69,7 +72,7 @@ describe('cpu-status', function() {
         irq: 0
       }
     }, {
-      times:{
+      times: {
         idle: 50,
         user: 25,
         sys: 25,
@@ -78,10 +81,10 @@ describe('cpu-status', function() {
       }
     }])
 
-    clock.tick(2000);
+    clock.tick(2000)
   })
 
-  it('should default to 1000ms', function(done) {
+  it('should default to 1000ms', function (done) {
     var os = {
       cpus: sinon.stub()
     }
@@ -91,21 +94,20 @@ describe('cpu-status', function() {
 
     os.cpus.returns([])
 
-    cpuStats(function(error, results) {
-      done()
+    cpuStats(function (error) {
+      done(error)
     })
 
-    clock.tick(1000);
+    clock.tick(1000)
   })
 
-  it('should object to incorrect arguments', function(done) {
+  it('should object to incorrect arguments', function (done) {
     var cpuStats = require('../index')
 
     try {
       cpuStats()
-    } catch(e) {
+    } catch (e) {
       done()
     }
-
   })
 })
